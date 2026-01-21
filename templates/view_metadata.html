@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}PPTX Metadata{% endblock %}
+
+{% block content %}
+<h5 class="mb-3">
+  Metadata for <span class="badge bg-secondary">{{ template }}</span>
+</h5>
+
+<table class="table table-bordered table-striped">
+  <thead class="table-light">
+    <tr><th>Property</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    {% for key, value in metadata.items() %}
+    <tr>
+      <td>{{ key }}</td>
+      <td>{{ value or '—' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{{ url_for('list_templates_web') }}" class="btn btn-secondary">Dashboard</a>
+{% endblock %}

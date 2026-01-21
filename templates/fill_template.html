@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}PPTX Fill{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-info">
+      {% for msg in messages %}
+        <div>{{ msg }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<h5 class="mb-3">
+  Filling <span class="badge bg-secondary">{{ template }}</span>
+</h5>
+
+
+
+
+<div class="alert alert-warning small">
+  <strong>Using Placeholder Value Controls:</strong><br>
+  Leave value empty to blank tag in template. <br>
+  Enter value= <code> !!! </code> to skip original tag in template fill. Leaves in-situ for re-processing. <br>
+  Enter value= <code> {new tag} </code> to replace original tag in template. Returned template can be re-processed for new tag. <br>
+  
+</div>
+
+<form method="POST" action="{{ url_for('fill_template_web', template=template) }}" class="row g-2 align-items-center mb-4">
+
+
+  <input type="hidden" name="template" value="{{ template }}">
+
+  {% for tag in placeholders %}
+<div class="col-4 col-lg-3 mb-0">
+  <label for="{{ tag }}" class="form-label small mb-1">{{ tag }}</label>
+  <input type="text" name="{{ tag }}" id="{{ tag }}" class="form-control form-control-sm py-1">
+</div>
+
+  {% endfor %}
+
+  <div class="col-12 mt-4">
+    <h6 class="mb-2">Select Slides to Keep:</h6>
+<div class="d-flex flex-wrap gap-2">
+  {% for slide_index in tags_by_slide.keys() %}
+    <input type="checkbox" class="btn-check" id="slide{{ slide_index }}" name="keep" value="{{ slide_index }}" checked>
+    <label class="btn btn-outline-primary btn-sm" for="slide{{ slide_index }}">
+      Slide {{ slide_index +1}}
+    </label>
+  {% endfor %}
+</div>
+
+  </div>
+
+  <div class="col-12 d-flex gap-2 mt-4">
+    <button type="submit" class="btn btn-success btn-sm">Fill & Download</button>
+    <a href="/ui" class="btn btn-secondary btn-sm">Dashboard</a>
+  </div>
+</form>
+
+{% endblock %}
+

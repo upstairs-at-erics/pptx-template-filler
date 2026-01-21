@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}API Key{% endblock %}
+
+{% block content %}
+  <h2 class="mb-4">Your API Key</h2>
+  <div class="alert alert-secondary">
+    <code>{{ api_key }}</code>
+  </div>
+  <p class="text-muted small">Use this key in your API requests via <code>X-API-Key</code> header or <code>?api_key=</code> query parameter.</p>
+
+  <span class="bg-warning text-dark px-2 rounded">
+    There are currently no tools implemented for key management, so ask mark if key refresh or revoke needed. 
+  </span>
+
+  <br/>
+
+
+  <a href="/ui" class="btn btn-secondary mt-3">Dashboard</a>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}PPTX Templates{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-info">
+      {% for msg in messages %}
+        <div>{{ msg }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+    <h2>Dashboard</h2>
+
+    <br/>
+
+        <a href="/ui/upload-web" class="btn btn-primary btn-sm" style="margin-bottom: 20px; display: inline-block;">Upload Template</a>
+        <a href="{{ status_url }}" class="btn btn-outline-secondary btn-sm" style="margin-bottom: 20px; display: inline-block;">API</a>
+
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-secondary btn-sm float-end">Logout</a>
+
+
+
+<table class="table table-bordered table-striped table-hover ">
+    <thead class="table-light">
+        <tr>
+            <th style="text-align: center;">Filename</th>
+            <th style="text-align: center;">Slides</th>
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in templates %}
+        <tr>
+            <td style="word-break: break-word; max-width: 250px;">{{ t.filename }}</td>
+            <td class="text-center">{{ t.slide_count or 'Error' }}</td>
+<td class="d-flex gap-2 flex-wrap justify-content-center">
+  <a href="{{ t.download_url }}" class="btn btn-primary btn-sm">Download</a>
+  <a href="{{ t.placeholders_url }}" class="btn btn-info btn-sm">Tags</a>
+  <a href="{{ url_for('view_metadata', template=t.filename) }}" class="btn btn-warning btn-sm">Metadata</a>
+
+  <a href="{{ t.fill_url }}" class="btn btn-success btn-sm">Fill</a>
+  <div>
+    <form method="POST" action="{{ url_for('delete_template_web') }}" onsubmit="return confirm('Delete {{ t.filename }}?');">
+      <input type="hidden" name="template" value="{{ t.filename }}">
+      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+    </form>
+  </div>
+</td>
+
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

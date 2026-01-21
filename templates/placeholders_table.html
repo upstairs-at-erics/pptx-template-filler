@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}PPTX Tags{% endblock %}
+
+{% block content %}
+
+<h5 class="mb-3">
+  Placeholders for <span class="badge bg-secondary">{{ template }}</span>
+</h5>
+
+
+
+    <h3>JSON TEMPLATE</h3>
+
+
+<div class="alert alert-secondary text-monospace">
+  {
+    <br>&nbsp;&nbsp;"template": "{{ template }}",
+    <br>&nbsp;&nbsp;"key": [],
+    <br>&nbsp;&nbsp;"replacements": {
+      {% for tag in all_tags %}
+        "{{ tag }}": ""{% if not loop.last %}, {% endif %}
+      {% endfor %}
+    }<br/>
+  }
+</div>
+
+
+
+
+
+
+
+
+<h3 class="mt-4">Tags by Slide</h3>
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Slide Index</th>
+            <th>Tags</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for slide, tags in tags_by_slide.items() %}
+        <tr>
+            <td>{{ slide + 1 }}</td>
+            <td>{{ tags | join(', ') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3 class="mt-4">Slides Without Tags</h3>
+<div class="alert alert-secondary">
+    {{ slides_no_tags | join(', ') if slides_no_tags else 'None' }}
+</div>
+
+<a href="/ui" class="btn btn-secondary mt-3">Dashboard</a>
+
+
+
+{% endblock%}

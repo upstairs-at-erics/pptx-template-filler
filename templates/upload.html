@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}PPTX Upload{% endblock %}
+
+{% block content %}
+
+    <h2>Upload a Template</h2>
+    <br/>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for msg in messages %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+
+
+<form method="POST" enctype="multipart/form-data" class="mb-4">
+  <div class="mb-3">
+    <label for="pptxFile" class="form-label">Choose a PowerPoint Template file (.pptx)</label>
+    <input type="file" name="file" id="pptxFile" accept=".pptx" class="form-control" required>
+  </div>
+
+  <br/>
+  <button type="submit" class="btn btn-primary">Upload</button>
+  <a href="{{ url_for('ui_redirect') }}" class="btn btn-secondary">Dashboard</a>
+
+</form>
+
+
+{% endblock%}
