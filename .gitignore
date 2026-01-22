@@ -10,6 +10,10 @@ dist/
 build/
 *.log
 
+sync.sh
+# ignore the filled files folder
+/filled/
+
 # Virtual environment
 venv/
 ENV/
