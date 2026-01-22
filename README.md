@@ -1,6 +1,6 @@
 # PPT Template Filler API
 
-A high-performance REST API and Admin UI for automating PowerPoint document generation.   
+A high-performance REST API and Admin UI for automating PowerPoint document generation built in Flask.   
 Using standard `.pptx` files as templates containing multiple `{{tagname}}`, tags can be automatically replaced with dynamic data and fully populated powerpoint file downloaded.
 
 ## Screenshots
